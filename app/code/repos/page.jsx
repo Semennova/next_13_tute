@@ -6,8 +6,15 @@ async function fetchRepos() {
   const response = await fetch('https://api.github.com/users/Semennova/repos', {
     headers: {
       'Authorization': `token ${process.env.NEXT_PUBLIC_GITHUB_TOKEN}`
+    },
+    
+    next: {
+      revalidate: 60
     }
   })
+
+  await new Promise((resolve) => setTimeout(resolve, 1000))
+
   return await response.json()
 }
 
